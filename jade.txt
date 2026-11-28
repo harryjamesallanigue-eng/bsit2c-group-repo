@@ -1,1 +1,479 @@
-Hello, I am Jade from BSIT 2C
+!DOCTYPE html>
+2
+<html lang="en">
+3
+<head>
+4
+<meta charset="utf-8">
+5
+<meta name="viewport" content="width=device-width,initial-scale=1">
+6
+<title>BudgetBuddy – Money made simple</title>
+7
+<style>
+8
+:root{--ink:#2a1768;--pur:#4b2fa0;--bg:#f4f1ff;--card:#fff;--coral:#ff7a59;--sun:#ffd166;--mint:#12b5a0;--mut:#6b6590;--line:#e4defa;--red:#e5484d}
+9
+*{box-sizing:border-box}
+10
+body{margin:0;font-family:Roboto,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+11
+h1,h2,h3{margin:0;line-height:1.15}
+12
+button,input,select{font:inherit}
+13
+button{cursor:pointer}
+14
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+15
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem}
+16
+.logo b{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:var(--coral);color:#fff}
+17
+/* auth */
+18
+.auth{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;background:#2a1768;color:#fff}
+19
+.hero{padding:48px 6vw;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+20
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;margin:28px 0 14px}
+21
+.hero h1 span{color:var(--sun);display:block}
+22
+.hero p{max-width:34ch;opacity:.85;font-size:1.1rem}
+23
+.orb{position:absolute;border-radius:50%}
+24
+.o1{width:300px;height:300px;background:var(--coral);right:-90px;bottom:-60px}
+25
+.o2{width:70px;height:70px;background:var(--sun);right:190px;bottom:230px}
+26
+.panel{background:var(--card);color:var(--ink);margin:auto;width:min(420px,92%);padding:28px;border-radius:20px}
+27
+.tabs{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:12px;margin-bottom:18px}
+28
+.tabs button{flex:1;border:0;background:none;padding:9px;border-radius:9px;font-weight:600;color:var(--mut)}
+29
+.tabs button.on{background:#fff;color:var(--pur);box-shadow:0 1px 4px #0002}
+30
+label{display:block;font-size:.8rem;font-weight:700;color:var(--mut);margin:12px 0 4px}
+31
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#faf9ff;color:var(--ink)}
+32
+.btn{width:100%;margin-top:18px;padding:12px;border:0;border-radius:10px;background:var(--pur);color:#fff;font-weight:700}
+33
+.btn:hover{background:var(--ink)}
+34
+.btn.coral{background:var(--coral)}
+35
+.msg{margin-top:12px;font-size:.9rem;color:var(--red);min-height:1.2em}
+36
+.msg.ok{color:var(--mint)}
+37
+/* app */
+38
+header{background:#2a1768;color:#fff;padding:12px 5vw;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+39
+nav{display:flex;gap:4px;flex:1;overflow-x:auto}
+40
+nav button{border:0;background:none;color:#cfc6f5;padding:8px 14px;border-radius:9px;font-weight:600;white-space:nowrap}
+41
+nav button.on{background:#ffffff22;color:#fff}
+42
+.who{display:flex;align-items:center;gap:12px;font-size:.9rem}
+43
+.who button{border:1px solid #ffffff55;background:none;color:#fff;padding:6px 12px;border-radius:8px}
+44
+main{max-width:1000px;margin:0 auto;padding:28px 5vw 60px}
+45
+main h2{font-size:1.9rem;margin-bottom:4px}
+46
+.sub{color:var(--mut);margin:0 0 22px}
+47
+.grid{display:grid;gap:16px}
+48
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+49
+.g2{grid-template-columns:1.2fr 1fr}
+50
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+51
+.stat{display:flex;gap:14px;align-items:center}
+52
+.ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:1.3rem}
+53
+.stat small{display:block;color:var(--mut);font-size:.78rem;font-weight:600}
+54
+.stat strong{font-size:1.7rem}
+55
+.pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.75rem;font-weight:700;background:#d9f5ef;color:#0a7d6d}
+56
+.pill.warn{background:#fff0c9;color:#8a5a00}.pill.bad{background:#ffe1dc;color:#b4281a}
+57
+.donutwrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+58
+.legend{flex:1;min-width:180px}
+59
+.legend div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:.92rem}
+60
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+61
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+62
+.row:last-child{border:0}
+63
+.row small{color:var(--mut);display:block}
+64
+.x{border:0;background:none;color:var(--mut);font-size:1.1rem}
+65
+.x:hover{color:var(--red)}
+66
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+67
+.seg{display:inline-flex;background:#e9e4fb;padding:4px;border-radius:10px}
+68
+.seg button{border:0;background:none;padding:6px 14px;border-radius:7px;font-weight:600;color:var(--mut)}
+69
+.seg button.on{background:#fff;color:var(--pur)}
+70
+.bar{height:9px;background:var(--line);border-radius:9px;overflow:hidden;margin:10px 0 4px}
+71
+.bar i{display:block;height:100%;border-radius:9px}
+72
+.chip{padding:2px 10px;border-radius:99px;background:#ece7ff;font-size:.8rem;font-weight:600}
+73
+.small{padding:7px 12px;border:0;border-radius:8px;background:#ece7ff;color:var(--pur);font-weight:700;font-size:.85rem}
+74
+.note{background:#ffe9e3;border-color:#ffd3c7}
+75
+.empty{color:var(--mut);padding:14px 0}
+76
+@media(max-width:760px){.auth{grid-template-columns:1fr}.hero{padding:32px 6vw}.o1,.o2{display:none}.g2{grid-template-columns:1fr}.panel{margin:0 auto 32px}}
+77
+</style>
+78
+</head>
+79
+<body>
+80
+<div id="root"></div>
+81
+
+82
+<script>
+83
+/* ---------- Storage (localStorage, with in-memory fallback) ---------- */
+84
+let mem=null;
+85
+function load(){try{const r=localStorage.getItem('budgetbuddy');if(r)return JSON.parse(r)}catch(e){}return mem||{users:{},data:{},session:null,lock:{}}}
+86
+function save(){mem=db;try{localStorage.setItem('budgetbuddy',JSON.stringify(db))}catch(e){}}
+87
+let db=load();
+88
+
+89
+/* ---------- Helpers ---------- */
+90
+const $=s=>document.querySelector(s);
+91
+const P=n=>'₱'+Number(n||0).toLocaleString('en-PH',{maximumFractionDigits:2});
+92
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+93
+const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+94
+const CATS={'Food':'#ff9f1c','Transportation':'#12b5a0','School Supplies':'#4b2fa0','Entertainment':'#e5486d','Other':'#4c8dff'};
+95
+const D=()=>db.data[db.session];
+96
+let view='dash',period='monthly',authTab='in';
+97
+
+98
+/* ---------- Password hashing: salted PBKDF2 ---------- */
+99
+const b64=a=>btoa(String.fromCharCode(...a));
+100
+const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+101
+const newSalt=()=>b64(crypto.getRandomValues(new Uint8Array(16)));
+102
+async function hash(pw,salt){
+103
+  if(window.crypto&&crypto.subtle){
+104
+    const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);
+105
+    const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:unb64(salt),iterations:100000,hash:'SHA-256'},k,256);
+106
+    return b64(new Uint8Array(bits));
+107
+  }
+108
+  let h=0;for(const c of salt+pw)h=Math.imul(31,h)+c.charCodeAt(0)|0;return String(h); // fallback only
+109
+}
+110
+
+111
+/* ---------- Auth ---------- */
+112
+async function register(e){
+113
+  e.preventDefault();
+114
+  const name=$('#n').value.trim(),email=$('#e').value.trim().toLowerCase(),pw=$('#p').value;
+115
+  if(pw.length<6)return say('Password must be at least 6 characters.');
+116
+  if(db.users[email])return say('That email already has an account. Sign in instead.');
+117
+  const salt=newSalt();
+118
+  db.users[email]={name,salt,hash:await hash(pw,salt)};
+119
+  db.data[email]={allowance:[],expenses:[],goals:[]};
+120
+  db.session=email;save();render();
+121
+}
+122
+async function login(e){
+123
+  e.preventDefault();
+124
+  const email=$('#e').value.trim().toLowerCase(),pw=$('#p').value;
+125
+  const L=db.lock[email]||(db.lock[email]={n:0,until:0});
+126
+  const wait=Math.ceil((L.until-Date.now())/1000);
+127
+  if(wait>0)return say(`Too many tries. Try again in ${wait}s.`);
+128
+  const u=db.users[email];
+129
+  if(u&&await hash(pw,u.salt)===u.hash){L.n=0;db.session=email;save();return render()}
+130
+  L.n++;
+131
+  if(L.n>=5){L.n=0;L.until=Date.now()+30000;save();return say('Five wrong tries. Sign-in is paused for 30 seconds.')}
+132
+  save();say(`Wrong email or password. ${5-L.n} tries left.`);
+133
+}
+134
+function logout(){db.session=null;save();view='dash';render()}
+135
+function say(t,ok){const m=$('#msg');m.textContent=t;m.className='msg'+(ok?' ok':'')}
+136
+
+137
+/* ---------- Money logic ---------- */
+138
+function inPeriod(dt,p){
+139
+  const t=today();
+140
+  if(p==='yearly')return dt.slice(0,4)===t.slice(0,4);
+141
+  if(p==='monthly')return dt.slice(0,7)===t.slice(0,7);
+142
+  const diff=(new Date(t)-new Date(dt))/864e5;return diff>=0&&diff<7;
+143
+}
+144
+const sum=a=>a.reduce((s,x)=>s+x.amt,0);
+145
+function totals(p){
+146
+  const d=D(),inc=sum(d.allowance.filter(x=>inPeriod(x.date,p))),exp=d.expenses.filter(x=>inPeriod(x.date,p));
+147
+  return{inc,exp,spent:sum(exp),left:inc-sum(exp)};
+148
+}
+149
+function donut(segs,big,small){
+150
+  const r=52,C=2*Math.PI*r,tot=segs.reduce((s,x)=>s+x.v,0);let off=0;
+151
+  const arcs=tot?segs.filter(s=>s.v>0).map(s=>{const l=s.v/tot*C;const el=`<circle cx="70" cy="70" r="${r}" fill="none" stroke="${s.c}" stroke-width="16" stroke-dasharray="${l} ${C-l}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=l;return el}).join(''):'';
+152
+  return `<svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="${esc(big)} ${esc(small)}"><circle cx="70" cy="70" r="${r}" fill="none" stroke="#e4defa" stroke-width="16"/>${arcs}<text x="70" y="68" text-anchor="middle" font-size="19" font-weight="800" fill="#2a1768">${esc(big)}</text><text x="70" y="86" text-anchor="middle" font-size="10" fill="#6b6590">${esc(small)}</text></svg>`;
+153
+}
+154
+
+155
+/* ---------- Actions ---------- */
+156
+function addAllowance(e){e.preventDefault();const amt=parseFloat($('#a').value);if(!(amt>0))return;D().allowance.unshift({amt,note:$('#nt').value.trim()||'Allowance',date:$('#d').value||today()});save();render()}
+157
+function addExpense(e){e.preventDefault();const amt=parseFloat($('#a').value);if(!(amt>0))return;D().expenses.unshift({amt,note:$('#nt').value.trim()||'Expense',cat:$('#c').value,date:$('#d').value||today()});save();render()}
+158
+function addGoal(e){e.preventDefault();const t=parseFloat($('#a').value);if(!(t>0))return;D().goals.push({name:$('#nt').value.trim()||'Goal',target:t,saved:0});save();render()}
+159
+function del(k,i){D()[k].splice(i,1);save();render()}
+160
+function addSavings(i){const v=parseFloat(prompt('How much do you want to add?'));if(v>0){const g=D().goals[i];g.saved=Math.min(g.target,g.saved+v);save();render()}}
+161
+const go=v=>{view=v;render()};
+162
+const setP=p=>{period=p;render()};
+163
+
+164
+/* ---------- Views ---------- */
+165
+function authView(){
+166
+  return `<div class="auth"><section class="hero"><div class="logo"><b>B</b>BudgetBuddy</div>
+167
+  <h1>Spend wisely.<span>Dream bigger.</span></h1><p>Your allowance, daily spending and savings goals, together in one calm, easy place.</p>
+168
+  <div class="orb o2"></div><div class="orb o1"></div></section>
+169
+  <section style="display:grid;align-items:center"><div class="panel">
+170
+  <div class="tabs"><button class="${authTab==='in'?'on':''}" onclick="authTab='in';render()">Sign in</button><button class="${authTab==='up'?'on':''}" onclick="authTab='up';render()">Create account</button></div>
+171
+  <form onsubmit="${authTab==='in'?'login':'register'}(event)">
+172
+  ${authTab==='up'?'<label for="n">Name</label><input id="n" required autocomplete="name">':''}
+173
+  <label for="e">Email</label><input id="e" type="email" required autocomplete="email">
+174
+  <label for="p">Password</label><input id="p" type="password" required autocomplete="${authTab==='in'?'current-password':'new-password'}">
+175
+  <button class="btn coral" type="submit">${authTab==='in'?'Sign in':'Create your account'}</button><div id="msg" class="msg" role="alert"></div></form>
+176
+  <p class="sub" style="margin:10px 0 0;font-size:.8rem">Your data stays in this browser. Passwords are salted and hashed.</p>
+177
+  </div></section></div>`;
+178
+}
+179
+function dashView(){
+180
+  const t=totals('monthly'),pct=t.inc?Math.min(100,Math.round(t.spent/t.inc*100)):0;
+181
+  const st=!t.inc?['Add allowance',' warn']:t.left<0?['Over budget',' bad']:pct>80?['Careful',' warn']:['On track',''];
+182
+  return `<h2>Your money, at a glance.</h2><p class="sub">This month so far</p>
+183
+  <div class="grid g3">
+184
+   <div class="card stat"><div class="ic" style="background:#ece7ff;color:var(--pur)">+</div><div><small>Total allowance</small><strong>${P(t.inc)}</strong></div></div>
+185
+   <div class="card stat"><div class="ic" style="background:#ffe1dc;color:var(--coral)">−</div><div><small>Total expenses</small><strong>${P(t.spent)}</strong></div></div>
+186
+   <div class="card stat"><div class="ic" style="background:#d9f5ef;color:var(--mint)">=</div><div><small>Remaining balance</small><strong>${P(t.left)}</strong></div></div>
+187
+  </div>
+188
+  <div class="card" style="margin-top:16px"><div style="display:flex;justify-content:space-between;margin-bottom:14px"><h3>Monthly budget</h3><span class="pill${st[1]}">${st[0]}</span></div>
+189
+   <div class="donutwrap">${donut([{v:t.spent,c:'#4b2fa0'},{v:Math.max(t.left,0),c:'#cfc6f5'}],pct+'%','spent')}
+190
+   <div class="legend"><div><span><i class="dot" style="background:#4b2fa0"></i>Spent</span><b>${P(t.spent)}</b></div><div><span><i class="dot" style="background:#cfc6f5"></i>Remaining</span><b>${P(t.left)}</b></div></div></div>
+191
+   <p class="sub" style="margin:14px 0 0">${t.inc?(t.left>=0?`You have kept ${100-pct}% of your allowance.`:'You have spent more than your allowance this month.'):'Log your allowance to start tracking.'}</p></div>`;
+192
+}
+193
+function allowanceView(){
+194
+  const a=D().allowance;
+195
+  return `<h2>Allowance</h2><p class="sub">Log every deposit and see what is available this month.</p>
+196
+  <div class="grid g2"><form class="card" onsubmit="addAllowance(event)"><h3>Add allowance</h3>
+197
+   <label for="nt">Source</label><input id="nt" placeholder="e.g. Weekly allowance">
+198
+   <div class="two"><div><label for="a">Amount</label><input id="a" type="number" min="1" step="0.01" required></div><div><label for="d">Date</label><input id="d" type="date" value="${today()}"></div></div>
+199
+   <button class="btn" type="submit">Save allowance</button></form>
+200
+   <div class="card"><h3>History</h3>${a.length?a.map((x,i)=>`<div class="row"><div>${esc(x.note)}<small>${x.date}</small></div><div><b>${P(x.amt)}</b> <button class="x" aria-label="Delete" onclick="del('allowance',${i})">✕</button></div></div>`).join(''):'<p class="empty">No allowance logged yet.</p>'}</div></div>`;
+201
+}
+202
+function expensesView(){
+203
+  const e=D().expenses;
+204
+  return `<h2>Expenses</h2><p class="sub">Log a purchase in seconds.</p>
+205
+  <div class="grid g2"><form class="card" onsubmit="addExpense(event)"><h3>Expense details</h3>
+206
+   <label for="nt">Description</label><input id="nt" placeholder="e.g. Lunch" required>
+207
+   <div class="two"><div><label for="c">Category</label><select id="c">${Object.keys(CATS).map(c=>`<option>${c}</option>`).join('')}</select></div><div><label for="a">Amount</label><input id="a" type="number" min="1" step="0.01" required></div></div>
+208
+   <label for="d">Date</label><input id="d" type="date" value="${today()}">
+209
+   <button class="btn" type="submit">Save expense</button></form>
+210
+   <div class="card"><h3>Recent expenses</h3>${e.length?e.map((x,i)=>`<div class="row"><div>${esc(x.note)}<small><i class="dot" style="background:${CATS[x.cat]}"></i>${x.cat} · ${x.date}</small></div><div><b>${P(x.amt)}</b> <button class="x" aria-label="Delete" onclick="del('expenses',${i})">✕</button></div></div>`).join(''):'<p class="empty">No expenses yet. Add your first purchase.</p>'}</div></div>`;
+211
+}
+212
+function reportsView(){
+213
+  const t=totals(period),by={};t.exp.forEach(x=>by[x.cat]=(by[x.cat]||0)+x.amt);
+214
+  const list=Object.entries(by).sort((a,b)=>b[1]-a[1]),top=list[0];
+215
+  const label={weekly:'last 7 days',monthly:'this month',yearly:'this year'}[period];
+216
+  const tip=!t.exp.length?'Log a few expenses to see insights here.':t.left>0?`Your remaining balance is healthy. Try moving ${P(Math.round(t.left*.1))} toward a savings goal.`:'You have spent your whole allowance for this period. Review your biggest category.';
+217
+  return `<div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px"><div><h2>See where it all goes.</h2><p class="sub">Showing ${label}</p></div>
+218
+  <div class="seg">${['weekly','monthly','yearly'].map(p=>`<button class="${p===period?'on':''}" onclick="setP('${p}')">${p[0].toUpperCase()+p.slice(1)}</button>`).join('')}</div></div>
+219
+  <div class="grid g2"><div class="card"><h3>Expenses by category</h3>${list.length?`<div class="donutwrap" style="margin-top:14px">${donut(list.map(([c,v])=>({v,c:CATS[c]})),P(t.spent),'Total spent')}<div class="legend">${list.map(([c,v])=>`<div><span><i class="dot" style="background:${CATS[c]}"></i>${c}</span><b>${P(v)} <small style="color:var(--mut)">${Math.round(v/t.spent*100)}%</small></b></div>`).join('')}</div></div>`:'<p class="empty">No expenses in this period.</p>'}</div>
+220
+  <div class="grid"><div class="card note"><small><b>Highest spend</b></small><h3>${top?top[0]:'—'}</h3><small>${top?P(top[1])+' '+label:'Nothing logged yet'}</small></div>
+221
+  <div class="card"><b>A helpful insight</b><p class="sub" style="margin:6px 0 0">${tip}</p></div></div></div>`;
+222
+}
+223
+function goalsView(){
+224
+  const g=D().goals,cols=['#4b2fa0','#ff9f1c','#4c8dff','#12b5a0','#e5486d'];
+225
+  return `<h2>Turn plans into progress.</h2><p class="sub">Set a target, add savings and watch the bar fill.</p>
+226
+  <form class="card" onsubmit="addGoal(event)" style="margin-bottom:16px"><div class="two"><div><label for="nt">Goal name</label><input id="nt" placeholder="e.g. New laptop" required></div><div><label for="a">Target amount</label><input id="a" type="number" min="1" step="0.01" required></div></div><button class="btn" type="submit" style="width:auto;padding:11px 22px">Add goal</button></form>
+227
+  <div class="grid g3">${g.length?g.map((x,i)=>{const p=Math.round(x.saved/x.target*100);return `<div class="card"><div style="display:flex;justify-content:space-between"><h3>${esc(x.name)}</h3><button class="x" aria-label="Delete goal" onclick="del('goals',${i})">✕</button></div><p style="margin:4px 0">${P(x.saved)} of ${P(x.target)}</p><div class="bar"><i style="width:${p}%;background:${cols[i%5]}"></i></div><small style="color:var(--mut)">${p}% complete</small><div style="margin-top:10px"><button class="small" onclick="addSavings(${i})">Add savings</button></div></div>`}).join(''):'<p class="empty">No goals yet. Add one above.</p>'}</div>
+228
+  <p style="margin-top:16px"><b>${P(sum(g.map(x=>({amt:x.saved}))))} saved</b> across ${g.length} goal${g.length===1?'':'s'}. Consistency matters more than the amount.</p>`;
+229
+}
+230
+function appView(){
+231
+  const V={dash:['Dashboard',dashView],allowance:['Allowance',allowanceView],expenses:['Expenses',expensesView],reports:['Reports',reportsView],goals:['Goals',goalsView]};
+232
+  return `<header><div class="logo"><b>B</b>BudgetBuddy</div><nav>${Object.entries(V).map(([k,[n]])=>`<button class="${k===view?'on':''}" onclick="go('${k}')">${n}</button>`).join('')}</nav>
+233
+  <div class="who"><span>${esc(db.users[db.session].name)}</span><button onclick="logout()">Log out</button></div></header><main>${V[view][1]()}</main>`;
+234
+}
+235
+function render(){$('#root').innerHTML=db.session&&db.users[db.session]?appView():authView()}
+236
+render();
+237
+</script>
+238
+</body>
+239
+
+
+</html>
